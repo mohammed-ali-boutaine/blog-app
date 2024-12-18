@@ -24,6 +24,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $error = "Invalid email format.";
         $isValid = false;
     }
+
+
+    // Profile Image Handling
+    if (!empty($_FILES['profile_image']['name'])) {
+        $targetDir = "../public/images/users/"; // Folder to save uploaded images
+        $fileName = basename($_FILES["profile_image"]["name"]);
+        $targetFilePath = $targetDir . $fileName;
+        $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+        // Generate a unique file name
+        $uniqueName = uniqid('user_', true) . '.' . $fileType;
+
+        // Construct the full path for the file
+        $targetFilePath = $targetDir . $uniqueName;
+        // Allow only image file types
+        $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'];
+        if (!in_array(strtolower($fileType), $allowedTypes)) {
+            $error = "Invalid file type. Only JPG, PNG, and GIF are allowed.";
+            $isValid = false;
+        }
+
+        // Move file to the target directory
+        if ($isValid && !move_uploaded_file($_FILES["profile_image"]["tmp_name"], $targetFilePath)) {
+            $error = "Failed to upload profile image.";
+            $isValid = false;
+        }
+    } else {
+        $error = "Profile image is required.";
+        $isValid = false;
+    }
+
+
     if ($isValid) {
 
         // check if email exists
@@ -34,15 +65,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $existingUser  = $result->fetch_assoc();
 
 
-        if ($existingUser ) {
+        if ($existingUser) {
             $error = "this email aleardy exists";
         } else {
-        // hash password
+            // hash password
 
-            $password = password_hash($password,PASSWORD_DEFAULT);
+            $password = password_hash($password, PASSWORD_DEFAULT);
 
-            $stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
-            $stmt->bind_param("sss", $username, $email, $password);
+            $stmt = $conn->prepare("INSERT INTO users (username, email, password, profile_picture) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("ssss", $username, $email, $password, $fileName);
             $stmt->execute();
 
             // Retrieve the newly inserted user ID
@@ -72,15 +103,103 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
+<!DOCTYPE html>
+<html lang="en">
 
-<form method="POST">
-    <h2>Register</h2>
-    <?php if (!empty($error)): ?>
-        <div style="color: red"><?= htmlspecialchars($error) ?></div>
-    <?php endif; ?>
-    <input type="text" name="username" placeholder="User nName" required>
-    <input type="email" name="email" placeholder="Email" required>
-    <input type="password" name="password" placeholder="Password" required>
-    <button type="submit">Register</button>
-    <p>Already have an account? <a href="user_login.php">Login here</a></p>
-</form>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<?php
+include "./inc/nav.php";
+?>
+
+
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+    <div class="w-full max-w-sm bg-white rounded-lg shadow-md p-6">
+        <form method="POST" enctype="multipart/form-data" class="space-y-6">
+            <h2 class="text-2xl font-bold text-gray-800 text-center">Register</h2>
+
+            <?php if (!empty($error)): ?>
+                <div class="bg-red-500 text-white text-sm p-3 rounded-md">
+                    <?= htmlspecialchars($error) ?>
+                </div>
+            <?php endif; ?>
+
+            <div class="space-y-4">
+                <!-- Username -->
+                <div>
+                    <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+                    <input
+                        type="text"
+                        name="username"
+                        id="username"
+                        placeholder="Username"
+                        required
+                        class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-gray-800">
+                </div>
+
+                <!-- Email -->
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                    <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        placeholder="Email"
+                        required
+                        class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-gray-800">
+                </div>
+
+                <!-- Password -->
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                    <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        placeholder="Password"
+                        required
+                        class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-gray-800">
+                </div>
+
+                <!-- Profile Image -->
+                <div>
+                    <label for="profile_image" class="block text-sm font-medium text-gray-700">Profile Image</label>
+                    <input
+                        type="file"
+                        name="profile_image"
+                        id="profile_image"
+                        accept="image/*"
+                        required
+                        class="mt-1 block w-full text-gray-800">
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button
+                type="submit"
+                class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                Register
+            </button>
+
+            <!-- Login Link -->
+            <p class="text-sm text-center text-gray-600">
+                Already have an account?
+                <a href="user_login.php" class="text-blue-500 hover:underline">Login here</a>
+            </p>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+<?php
+include "./inc/footer.php";
+?>

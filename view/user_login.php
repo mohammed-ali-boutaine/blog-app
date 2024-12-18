@@ -63,15 +63,71 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-<form method="POST">
-    <h2>Login</h2>
-    <?php if (!empty($error)): ?>
-          <div style="color: white; background-color: red; padding: 10px; border-radius: 5px;">
-               <?= htmlspecialchars($error) ?>
-          </div>
-     <?php endif; ?>
-    <input type="email" name="email" placeholder="Email" required>
-    <input type="password" name="password" placeholder="Password" required>
-    <button type="submit">Login</button>
-    <p>Don't have an account? <a href="user_register.php">Register here</a></p>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Login</title>
+     <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<?php 
+include "./inc/nav.php";
+?>
+
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+  <div class="w-full max-w-sm bg-white rounded-lg shadow-md p-6">
+    <form method="POST" class="space-y-6">
+      <h2 class="text-2xl font-bold text-gray-800 text-center">Login</h2>
+      <?php if (!empty($error)): ?>
+        <div class="text-sm text-white bg-red-500 p-3 rounded-md">
+          <?= htmlspecialchars($error) ?>
+        </div>
+      <?php endif; ?>
+      <div class="space-y-4">
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+          <input 
+            type="email" 
+            name="email" 
+            id="email" 
+            placeholder="Email" 
+            required 
+            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-gray-800"
+          >
+        </div>
+        <div>
+          <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+          <input 
+            type="password" 
+            name="password" 
+            id="password" 
+            placeholder="Password" 
+            required 
+            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-gray-800"
+          >
+        </div>
+      </div>
+      <button 
+        type="submit" 
+        class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+      >
+        Login
+      </button>
+      <p class="text-sm text-center text-gray-600">
+        Don't have an account? 
+        <a href="user_register.php" class="text-blue-500 hover:underline">Register here</a>
+      </p>
+    </form>
+  </div>
+</div>
+
+
+
+
+<?php 
+include "./inc/footer.php";
+?>

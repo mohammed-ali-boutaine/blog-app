@@ -17,7 +17,7 @@ $image_path = null;  // Default value if no image is uploaded
 
 if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
      // Validate and process the uploaded image
-     $image_dir = '../public/images/';  // Directory to store images
+     $image_dir = '../public/articles-images/';  // Directory to store images
 
      // Generate a unique name for the image
      $image_extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);  // Get the file extension
