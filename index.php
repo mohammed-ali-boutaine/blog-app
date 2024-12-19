@@ -21,17 +21,21 @@ if(check_user_authentication()){
 
 </head>
 
+
+
 <body>
 
      <body>
           <div class="max-w-screen-xl mx-auto px-5">
 
 
+          
 
 
           <!-- nav bar  -->
                <header class="flex flex-col lg:flex-row justify-between items-center my-5">
-                    <div class="flex w-full lg:w-auto items-center justify-between"> <a href="/" class="text-lg"><span class="font-bold text-slate-800">Blog</span><span class="text-slate-500">ship</span> </a>
+                    <div class="flex w-full lg:w-auto items-center justify-between">
+                          <a href="/" class="text-lg"><span class="font-bold text-slate-800">Blog</span><span class="text-slate-500">ship</span> </a>
                          <div class="block lg:hidden"> <button id="astronav-menu" aria-label="Toggle Menu"> <svg fill="currentColor" class="w-4 h-4 text-gray-800" width="24" height="24" viewBox="0 0 24 24" xmlns="https://www.w3.org/2000/svg">
                                         <title>Toggle Menu</title>
                                         <path class="astronav-close-icon astronav-toggle hidden" fill-rule="evenodd" clip-rule="evenodd" d="M18.278 16.864a1 1 0 01-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 01-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 011.414-1.414l4.829 4.828 4.828-4.828a1 1 0 111.414 1.414l-4.828 4.829 4.828 4.828z"></path>

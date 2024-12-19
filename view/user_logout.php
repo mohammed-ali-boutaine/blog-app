@@ -14,6 +14,6 @@ setcookie("user_id", "", time() - 3600, "/", "", true, true);
 setcookie("auth_token", "", time() - 3600, "/", "", true, true);
 
 
-header("Location: user_login.php");
+header("Location: /view/user_login.php");
 exit;
 ?>

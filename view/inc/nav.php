@@ -15,8 +15,8 @@
                               </li>
                               <!-- <li> <a href="/" class="flex lg:px-3 py-2 items-center text-gray-600 hover:text-gray-900"> <span></span> </a> </li> -->
                               <li> <a href="./user_dashboard.php" class="flex lg:px-3 py-2 items-center text-gray-600 hover:text-gray-900"> <span> Articles</span> </a> </li>
-                              <li> <a href="/about.php" class="flex lg:px-3 py-2 items-center text-gray-600 hover:text-gray-900"> <span> About</span> </a> </li>
-                              <li> <a href="/contact.php" class="flex lg:px-3 py-2 items-center text-gray-600 hover:text-gray-900"> <span> Contact</span> </a> </li>
+                              <li> <a href="./about.php" class="flex lg:px-3 py-2 items-center text-gray-600 hover:text-gray-900"> <span> About</span> </a> </li>
+                              <li> <a href="./contact.php" class="flex lg:px-3 py-2 items-center text-gray-600 hover:text-gray-900"> <span> Contact</span> </a> </li>
                          </ul>
                          <div class="lg:hidden flex items-center mt-3 gap-4"> <a href="#" class="rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 w-full px-4 py-2 bg-gray-100 hover:bg-gray-200   border-2 border-transparent">Log in </a> <a href="#" class="rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 w-full px-4 py-2 bg-black text-white hover:bg-gray-800  border-2 border-transparent">Sign up </a> </div>
                     </nav>

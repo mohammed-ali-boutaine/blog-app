@@ -37,18 +37,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Construct the full path for the file
         $targetFilePath = $targetDir . $uniqueName;
-        // Allow only image file types
-        $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'];
-        if (!in_array(strtolower($fileType), $allowedTypes)) {
-            $error = "Invalid file type. Only JPG, PNG, and GIF are allowed.";
-            $isValid = false;
-        }
 
-        // Move file to the target directory
-        if ($isValid && !move_uploaded_file($_FILES["profile_image"]["tmp_name"], $targetFilePath)) {
-            $error = "Failed to upload profile image.";
+    // Allow only image file types
+    $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'];
+    if (!in_array(strtolower($fileType), $allowedTypes)) {
+        $error = "Invalid file type. Only JPG, PNG, and GIF are allowed.";
+        $isValid = false;
+    }
+    // Check if the directory exists and create it if it doesn't
+    if (!is_dir($targetDir)) {
+        if (!mkdir($targetDir, 0777, true)) {
+            $error = "Failed to create the directory.";
             $isValid = false;
         }
+    }
+         // Move file to the target directory
+    if ($isValid && !move_uploaded_file($_FILES["profile_image"]["tmp_name"], $targetFilePath)) {
+        $error = "Failed to upload profile image.";
+        $isValid = false;
+    }
     } else {
         $error = "Profile image is required.";
         $isValid = false;
@@ -73,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $password = password_hash($password, PASSWORD_DEFAULT);
 
             $stmt = $conn->prepare("INSERT INTO users (username, email, password, profile_picture) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("ssss", $username, $email, $password, $fileName);
+            $stmt->bind_param("ssss", $username, $email, $password, $targetFilePath);
             $stmt->execute();
 
             // Retrieve the newly inserted user ID
