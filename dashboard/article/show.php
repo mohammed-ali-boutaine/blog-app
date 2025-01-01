@@ -89,11 +89,11 @@ echo "</pre>";
 
 
 <!-- -----------------  posts   -->
-<div id="post" class="post flex box-border border-2 border-slate-800 mb-4 rounded-lg">
-     <div class="max-w-2xl shadow-md rounded-lg overflow-hidden border-gray-700 bg-gray-950">
+
           <!-- -----------  post loop  -->
           <?php foreach ($articles as $article): ?>
-
+               <div id="post" class="post flex box-border border-2 border-slate-800 mb-4 rounded-lg">
+               <div class="max-w-2xl shadow-md rounded-lg overflow-hidden border-gray-700 bg-gray-950">
 
                <!-- Post Content -->
                <div class="p-6 relative">
@@ -141,8 +141,7 @@ echo "</pre>";
                          <span id="full-content" class="hidden">
                          $content
                          </span>
-                    </p>
-                              `;
+                    </p>`;
                     }
                     ?>
 
@@ -171,10 +170,6 @@ echo "</pre>";
                          </button>
                     </div>
                </div>
-     </div>
-
-
-
 
      <!-- Comments Section -->
      <div class="comments-section rounded-lg p-6 bg-gray-900 text-gray-200 h-full max-h-[520px] overflow-y-scroll">
@@ -186,7 +181,7 @@ echo "</pre>";
           <h3 class="text-lg font-bold mb-4">Comments</h3>
 
           <div class="space-y-4">
-          <?php foreach ($article['comments'] as $comment): ?>
+               <?php foreach ($article['comments'] as $comment): ?>
 
                <!-- Comment -->
                <div class="p-4 bg-gray-800 rounded-md">
@@ -197,27 +192,11 @@ echo "</pre>";
                <?php endforeach; ?>
 
           </div>
+     </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-     <?php endforeach; ?>
 
      </div>
 </div>
+     <?php endforeach; ?>
+
