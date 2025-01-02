@@ -8,7 +8,7 @@ if (!check_user_authentication()) {
  
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-$user_id = $_COOKIE['user_id'];  // Get the logged-in user's ID
+$user_id = $_COOKIE['user_id']; 
 $title = $_POST['title'];
 $content = $_POST['content'];
 

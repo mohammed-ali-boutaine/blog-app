@@ -23,8 +23,9 @@ SELECT
     cu.id AS comment_user_id,
     cu.username AS comment_username,
     cu.profile_picture AS comment_user_picture,
-    COUNT(DISTINCT l.id) AS like_count,
-    COUNT(DISTINCT c.id) AS comment_count,
+    (SELECT COUNT(*) FROM likes l WHERE l.article_id = a.id) AS like_count,
+    (SELECT COUNT(*) FROM commentaires c WHERE c.article_id = a.id) AS comment_count,
+    
     EXISTS (
         SELECT 1
         FROM likes l
@@ -175,8 +176,11 @@ echo "</pre>";
      <div class="comments-section rounded-lg p-6 bg-gray-900 text-gray-200 h-full max-h-[520px] overflow-y-scroll">
           <!-- Add New Comment -->
           <div>
-               <textarea class="w-full p-3 rounded-md bg-gray-800 text-gray-200 placeholder-gray-400" rows="3" placeholder="Add a comment..."></textarea>
+               <form action="./article/add_comment.php?article_id=<?= $article['id'] ?>" method="post">
+               <textarea name="comment" class="w-full p-3 rounded-md bg-gray-800 text-gray-200 placeholder-gray-400" rows="3" placeholder="Add a comment..."></textarea>
                <button class="mt-2 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md">Post Comment</button>
+               </form>
+
           </div>
           <h3 class="text-lg font-bold mb-4">Comments</h3>
 
