@@ -155,12 +155,18 @@ echo "</pre>";
                <div class="flex items-center justify-between p-4">
                     <div class="flex space-x-4">
                          <!-- Like Button -->
-                         <button class="flex items-center space-x-1 text-gray-400 hover:text-red-500">
+                         <form action="./article/add_like.php?article_id=<?= $article['id'] ?>" method="post">
+
+                         <button type="submit" class="flex items-center space-x-1 <?= $article['user_liked']? 'text-red-500' : 'text-gray-400 hover:text-red-500' ?> ">
                               <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                    <path stroke-linecap="round" stroke-linejoin="round" d="M14 9l-.882-3.528a1 1 0 00-.97-.772H9a1 1 0 00-.707.293l-3 3a1 1 0 00-.293.707v6a1 1 0 001 1h3v4a1 1 0 001 1h3a1 1 0 001-1v-4h3a1 1 0 001-1v-2.768a2 2 0 00-.586-1.414l-2-2A2 2 0 0014 9z" />
                               </svg>
-                              <span class="text-sm"><?= htmlspecialchars($article['like_count']) ?></span>
+                              <span class="text-sm">
+                                        <?= htmlspecialchars($article['like_count']) ?>
+
+                              </span>
                          </button>
+                    </form>
 
                          <!-- Comment Button -->
                          <button class="comments-btn flex items-center space-x-1 text-gray-400 hover:text-blue-500">
